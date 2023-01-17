@@ -9,6 +9,7 @@ public class ProdutoFabricacaoPropria extends Produto {
     }
 
     public void visualizar() {
+
         System.out.println("Vencimento padrão: " + this.diasVencimento + "dias");
     }
 }

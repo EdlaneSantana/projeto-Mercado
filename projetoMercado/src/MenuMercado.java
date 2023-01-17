@@ -2,9 +2,6 @@ import java.util.Scanner;
 import controller.ProdutoController;
 import model.ProdutoComprado;
 import model.ProdutoFabricacaoPropria;
-import org.w3c.dom.CDATASection;
-
-import javax.swing.*;
 
 public class MenuMercado {
     static Scanner ler = new Scanner(System.in);
