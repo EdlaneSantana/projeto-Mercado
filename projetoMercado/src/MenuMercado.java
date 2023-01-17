@@ -1,5 +1,7 @@
 import java.util.Scanner;
 import controller.ProdutoController;
+import model.ProdutoComprado;
+import model.ProdutoFabricacaoPropria;
 import org.w3c.dom.CDATASection;
 
 import javax.swing.*;
@@ -50,18 +52,22 @@ public class MenuMercado {
             System.out.println("Digite o Tipo do Produto: ");
             tipo = ler.nextInt();
         } while (tipo < 1 && tipo > 2);
-        int codigo, categoria, quantidade, dataFabricacaoPropria;
-        String descricao;
+        int codigo = 0, categoria = 1, quantidade = 1;
+        String descricao = "a";
+        //Fazer os pedidos das informações
 
         switch (tipo) {
             case 1 -> {
-                System.out.println("Digite a data de fabricação: ");
+                int tipoVencimento = 1;
+                System.out.println("O vencimento desse produto se dá em quantos dias: ");
                 produtos.cadastraProduto(
-                        new ProdutoFabricacaoPropria(codigo, descricao, categoria, quantidade, dataFabricacaoPropria));
+                        new ProdutoFabricacaoPropria(codigo, descricao, categoria, quantidade, tipoVencimento));
             }
-            case 1 -> {
+            case 2 -> {
+                String marca = "";
+                System.out.println("Digite a marca: ");
                 produtos.cadastraProduto(
-                        new ProdutoComprado());
+                        new ProdutoComprado(codigo, descricao, categoria, quantidade, marca));
             }
         }
     }
