@@ -23,14 +23,6 @@ public class Produto {
         this.tipo = tipo;
     }
 
-    public Produto(String descricao, int quantidade){
-        this.descricao = descricao;
-        this.quantidade = quantidade;
-    }
-    public Produto(int id){
-        this.id = id;
-    }
-
     public int getQuantidade() {
         return this.quantidade;
     }
