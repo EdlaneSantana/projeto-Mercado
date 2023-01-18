@@ -1,4 +1,5 @@
 import java.util.Scanner;
+
 import controller.ProdutoController;
 import model.Produto;
 import model.ProdutoComprado;
@@ -17,7 +18,7 @@ public class MenuMercado {
         String TEXT_YELLOW_BRIGHT = "\033[0;93m";
         System.out.println(TEXT_YELLOW_BRIGHT);
 
-        while(true) {
+        while (true) {
             System.out.println("-------------ESTOQUE-------------" +
                     "\n1 - Cadastro de produtos" +
                     "\n2 - Atualizar cadastro de produtos" +
@@ -70,51 +71,88 @@ public class MenuMercado {
                 System.out.println("Informe o vencimento padrão: ");
                 int vencimentoPadrao = ler.nextInt();
                 produtos.cadastraProduto(
-                        new ProdutoFabricacaoPropria(produtos.geraId(), descricao, categoria, quantidade, vencimentoPadrao));
+                        new ProdutoFabricacaoPropria(produtos.geraId(), tipo, descricao, categoria, quantidade, vencimentoPadrao));
             }
 
             case 2 -> {
                 System.out.println("Digite a marca: ");
                 String marca = ler.next();
                 produtos.cadastraProduto(
-                        new ProdutoComprado(produtos.geraId(), descricao, categoria, quantidade, marca));
+                        new ProdutoComprado(produtos.geraId(), tipo, descricao, categoria, quantidade, marca));
             }
         }
     }
 
     public static void atualizaCadastro() {
         System.out.println("Digite o ID do produto: ");
-        int indice = ler.nextInt();
-        produtos.buscaPorId(indice);
+        int id;
 
-        //fazer a opcao de selecionar o que alterar
-        System.out.println("Informe a nova descrição: ");
-        String novaDesc = ler.next();
+        do {
+            id = ler.nextInt();
+            if (produtos.buscarNosProdutos(id) == null) {
+                System.out.println("Código de produto inválido! Digite novamente.");
+            }
+        } while (produtos.buscarNosProdutos(id) == null);
 
-        System.out.println("Informe a quantidade: ");
-        int quantidade = ler.nextInt();
+        Produto alteraProduto = produtos.buscarNosProdutos(id);
 
-        Produto produto = new Produto(novaDesc, quantidade);
-        produtos.listaProdutos.size();
-        if(indice>=0 && indice<=produtos.listaProdutos.size() ){
-            produtos.listaProdutos.set(indice-1, produto );
-            produto.visualizar();
+        System.out.println("SELECINE O QUE DESEJA ALTERAR:" +
+                "\n1 - Tipo" +
+                "\n2 - Descrição" +
+                "\n3 - Categoria");
+
+        if (alteraProduto.getTipo() == 1) {
+            System.out.println("4 - Vencimento Padrão");
         }
+        if (alteraProduto.getTipo() == 2) {
+            System.out.println("4 - Marca");
+        }
+
+        int opcao = ler.nextInt();
+
+        switch (opcao) {
+            case 1:
+                System.out.println("Digite o novo Tipo: ");
+                int tipo = ler.nextInt();
+                alteraProduto.setTipo(tipo);
+                break;
+            case 2:
+                System.out.println("Digite o novo Descrição: ");
+                String descricao = ler.nextLine();
+                alteraProduto.setDescricao(descricao);
+                break;
+            case 3:
+                System.out.println("Digite o novo Categoria: ");
+                int categoria = ler.nextInt();
+                alteraProduto.setCategoria(categoria);
+                break;
+            case 4:
+                if (produtos.buscarNosProdutos(id).getTipo() == 1) {
+                    System.out.println("Digite o novo Vencimento Padrão.");
+                    int vencimentoPadrao = ler.nextInt();
+                    alteraProduto.set
+                }
+                if (produtos.buscarNosProdutos(id).getTipo() == 2) {
+                    System.out.println("Digite a nova Marca.");
+                    String marca = ler.nextLine();
+                }
+        }
+
     }
 
     public static void alteraEstoque() {
         int id, opcao;
         System.out.println("1 - Adicionar produtos ao estoque" +
-                           "2 - Remover produtos do estoque");
+                "2 - Remover produtos do estoque");
         opcao = ler.nextInt();
 
         System.out.println("Digite o código do produto");
         do {
             id = ler.nextInt();
-            if(produtos.buscarNosProdutos(id) == null) {
+            if (produtos.buscarNosProdutos(id) == null) {
                 System.out.println("Código de produto inválido! Digite novamente.");
             }
-        } while(produtos.buscarNosProdutos(id) == null);
+        } while (produtos.buscarNosProdutos(id) == null);
 
         System.out.println("Quantidade: ");
         int quantidade = ler.nextInt();
@@ -130,7 +168,7 @@ public class MenuMercado {
         System.out.println("Digite o ID do produto:");
         int numero = ler.nextInt();
 
-        if(numero > produtos.listaProdutos.size()){
+        if (numero > produtos.listaProdutos.size()) {
             System.out.println("Produto não existente");
             System.exit(0);
         }

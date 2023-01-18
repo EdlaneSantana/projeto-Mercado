@@ -2,15 +2,24 @@ package model;
 
 public class Produto {
     private int id;
+    private int tipo;
     private String descricao;
     private int quantidade;
     private int categoria;
 
-    public Produto(int id, String descricao, int categoria, int quantidade) {
+    public Produto(int id, int tipo, String descricao, int categoria, int quantidade) {
         this.descricao = descricao;
         this.categoria = categoria;
         this.quantidade = quantidade;
         this.id = id;
+    }
+
+    public int getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(int tipo) {
+        this.tipo = tipo;
     }
 
     public Produto(String descricao, int quantidade){

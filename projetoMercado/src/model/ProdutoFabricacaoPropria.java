@@ -3,8 +3,8 @@ package model;
 public class ProdutoFabricacaoPropria extends Produto {
     private int diasVencimento;
 
-    public ProdutoFabricacaoPropria(int id, String descricao, int categoria, int quantidade, int diasVencimento) {
-        super(id, descricao, categoria, quantidade);
+    public ProdutoFabricacaoPropria(int id, int tipo, String descricao, int categoria, int quantidade, int diasVencimento) {
+        super(id, tipo, descricao, categoria, quantidade);
         this.diasVencimento = diasVencimento;
     }
 

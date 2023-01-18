@@ -3,8 +3,8 @@ package model;
 public class ProdutoComprado extends Produto {
     private String marca;
 
-    public ProdutoComprado(int id, String descricao, int categoria, int quantidade, String marca) {
-        super(id, descricao, categoria, quantidade);
+    public ProdutoComprado(int id, int tipo, String descricao, int categoria, int quantidade, String marca) {
+        super(id, tipo, descricao, categoria, quantidade);
         this.marca = marca;
     }
 
