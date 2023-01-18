@@ -17,11 +17,7 @@ public class ProdutoFabricacaoPropria extends Produto {
     }
 
     public void visualizar() {
-        System.out.println("Descrição: " + this.getDescricao());
-        System.out.println("Categoria: "+this.getCategoria() + " - Produto Fabricado");
-        System.out.println("Quantidade: "+this.getQuantidade());
-        System.out.println("Vencimento padrão: " + this.diasVencimento + " dias\n");
+        super.visualizar();
+        System.out.println("Vencimento padrão: " + this.diasVencimento + " dias");
     }
-
-
 }

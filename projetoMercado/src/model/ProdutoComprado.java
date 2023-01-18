@@ -17,8 +17,7 @@ public class ProdutoComprado extends Produto {
     }
 
     public void visualizar() {
-        System.out.println("Descrição: " + this.getDescricao());
-        System.out.println("Quantidade: " + this.getQuantidade());
-        System.out.println("Categoria: "+this.getCategoria() + " - Produto Comprado\n");
+        super.visualizar();
+        System.out.println("Marca: " + this.getMarca());
     }
 }
