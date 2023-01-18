@@ -8,9 +8,9 @@ public class ProdutoController{
 
     public void cadastraProduto(Produto produto) {
         listaProdutos.add(produto);
-        System.out.println("Produto cadastrado com sucesso!");
-        System.out.println("Código: " + (produto.getId()));
         produto.visualizar();
+        System.out.println("Produto cadastrado com sucesso!\n");
+//        System.out.println("Código: " + (produto.getId()));
     }
 
     public void atualizaProduto(Produto produto) {
@@ -20,7 +20,6 @@ public class ProdutoController{
             System.out.println("Produto alterado: " + produto.getId());
         } else
             System.out.println("Não foi encontrado!");
-
     }
 
     public void adicionaProdutoEstoque(int id, int quantidade) {

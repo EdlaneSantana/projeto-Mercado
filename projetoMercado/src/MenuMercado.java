@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import controller.ProdutoController;
@@ -13,13 +14,22 @@ public class MenuMercado {
 
     public static void main(String[] args) {
         int opcao;
-        //criar produtos de teste;
+
+        ProdutoComprado nome = new ProdutoComprado(1, 1, "Arroz", 1, 100, "CAMPEIRO");
+        ProdutoComprado nome1 = new ProdutoComprado(2, 1, "Feijão", 1, 40, "CARIOCA");
+        ProdutoComprado nome2 = new ProdutoComprado(3, 1, "Óleo", 2, 30, "LIZA");
+        ProdutoComprado nome3 = new ProdutoComprado(6, 1, "Azeite", 2, 200, "GALLO");
+
+        produtos.cadastraProduto(nome);
+        produtos.cadastraProduto(nome1);
+        produtos.cadastraProduto(nome2);
+        produtos.cadastraProduto(nome3);
 
         String TEXT_YELLOW_BRIGHT = "\033[0;93m";
         System.out.println(TEXT_YELLOW_BRIGHT);
 
         while (true) {
-            System.out.println("-------------ESTOQUE-------------" +
+            System.out.println("-------------MENU-------------" +
                     "\n1 - Cadastro de produtos" +
                     "\n2 - Atualizar cadastro de produtos" +
                     "\n3 - Alterar quantidade de estoque do produtos" +
@@ -27,8 +37,14 @@ public class MenuMercado {
                     "\n5 - Listar todos os produtos" +
                     "\n6 - Deletar produto" +
                     "\n7 - Sair");
-            opcao = ler.nextInt();
-            //fazer try catch
+
+            try {
+                opcao = ler.nextInt();
+            } catch (InputMismatchException e) {
+                System.out.println("\nDi1gite valores inteiros!");
+                ler.nextLine();
+                opcao = 0;
+            }
 
             if (opcao == 7) {
                 System.out.println("Mensagem de saída do programa");
@@ -60,7 +76,7 @@ public class MenuMercado {
         System.out.println("Informe a descrição: ");
         String descricao = ler.next();
 
-        System.out.println("Informe a categoria: \n 1 - Alimentnos \n 2 - Objetos");
+        System.out.println("Informe a categoria: \n 1 - Alimentos \n 2 - Objetos");
         int categoria = ler.nextInt();
 
         System.out.println("Informe a quantidade: ");
@@ -130,14 +146,14 @@ public class MenuMercado {
                 if (produtos.buscarNosProdutos(id).getTipo() == 1) {
                     System.out.println("Digite o novo Vencimento Padrão.");
                     int vencimentoPadrao = ler.nextInt();
-                    alteraProduto.set
+                    produtos.atualizaProduto(new ProdutoFabricacaoPropria(alteraProduto.getId(), alteraProduto.getTipo(), alteraProduto.getDescricao(), alteraProduto.getCategoria(), alteraProduto.getQuantidade(), vencimentoPadrao));
                 }
                 if (produtos.buscarNosProdutos(id).getTipo() == 2) {
                     System.out.println("Digite a nova Marca.");
                     String marca = ler.nextLine();
+                    produtos.atualizaProduto(new ProdutoComprado(alteraProduto.getId(), alteraProduto.getTipo(), alteraProduto.getDescricao(), alteraProduto.getCategoria(), alteraProduto.getQuantidade(), marca));
                 }
         }
-
     }
 
     public static void alteraEstoque() {

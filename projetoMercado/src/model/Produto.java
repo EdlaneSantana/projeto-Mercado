@@ -8,6 +8,7 @@ public class Produto {
     private int categoria;
 
     public Produto(int id, int tipo, String descricao, int categoria, int quantidade) {
+        this.tipo = tipo;
         this.descricao = descricao;
         this.categoria = categoria;
         this.quantidade = quantidade;
@@ -84,6 +85,7 @@ public class Produto {
         System.out.println("ID: "+this.id);
         System.out.println("DESCRIÇÃO: "+this.getDescricao());
         System.out.println("CATEGORIA: "+this.getCategoria());
-        System.out.println("QUANTIDADE "+this.getQuantidade());
+        System.out.println("QUANTIDADE: "+this.getQuantidade());
+        System.out.println("TIPO: "+this.getTipo());
     }
 }
