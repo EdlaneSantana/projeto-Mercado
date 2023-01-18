@@ -1,25 +1,38 @@
 package model;
 
-public abstract class Produto {
-    static int id = 1;
+public class Produto {
+    private int id;
     private String descricao;
     private int quantidade;
     private int categoria;
 
-    public Produto(int codigo, String descricao, int categoria, int quantidade) {
-        this.id = codigo;
+    public Produto(int id, String descricao, int categoria, int quantidade) {
         this.descricao = descricao;
         this.categoria = categoria;
         this.quantidade = quantidade;
-        id++;
+        this.id = id;
+    }
+
+    public Produto(String descricao, int quantidade){
+        this.descricao = descricao;
+        this.quantidade = quantidade;
+    }
+    public Produto(int id){
+        this.id = id;
     }
 
     public int getQuantidade() {
         return this.quantidade;
     }
 
-    public void adicionaProdutoEstoque(int quantidade) {
-        this.quantidade += quantidade;
+    public boolean adicionaProdutoEstoque(int quantidade) {
+        if(quantidade > 0) {
+            this.quantidade += quantidade;
+            System.out.println("Adicionando " + quantidade + "unidades ao estoque");
+            return true;
+        }
+        System.out.println("A quantidade precisa ser maior do que 0!");
+        return false;
     }
 
     public boolean removeProdutoEstoque(int quantidade) {
@@ -29,6 +42,7 @@ public abstract class Produto {
         }
 
         this.quantidade -= quantidade;
+        System.out.println("Removendo " + quantidade + "unidades do estoque");
         return true;
     }
 
@@ -57,6 +71,10 @@ public abstract class Produto {
     }
 
     public void visualizar() {
-        System.out.println("Visualizar produto.");
+        System.out.println("——-———————PRODUTO————————-");
+        System.out.println("ID: "+this.id);
+        System.out.println("DESCRIÇÃO: "+this.getDescricao());
+        System.out.println("CATEGORIA: "+this.getCategoria());
+        System.out.println("QUANTIDADE "+this.getQuantidade());
     }
 }

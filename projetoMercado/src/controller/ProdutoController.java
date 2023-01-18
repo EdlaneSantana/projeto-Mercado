@@ -4,39 +4,55 @@ import model.Produto;
 import java.util.ArrayList;
 
 public class ProdutoController{
-    private ArrayList<Produto> listaProdutos = new ArrayList<Produto>();
+    public ArrayList<Produto> listaProdutos = new ArrayList<Produto>();
 
     public void cadastraProduto(Produto produto) {
         listaProdutos.add(produto);
-        System.out.println("Mensagem de criação");
+        System.out.println("Produto cadastrado com sucesso!");
+        System.out.println("Código: " + (produto.getId()));
+        produto.visualizar();
     }
 
     public void atualizaProduto(Produto produto) {
+        var buscarProduto = buscarNosProdutos(produto.getId());
+        if (buscarProduto != null){
+            listaProdutos.set(listaProdutos.indexOf(buscarProduto), produto);
+            System.out.println("Produto alterado: " + produto.getId());
+        } else
+            System.out.println("Não foi encontrado!");
 
     }
 
     public void adicionaProdutoEstoque(int id, int quantidade) {
-
-    }
-
-    public void removeProdutoEstoque(int id, int quantidade) {
-        var buscaProduto = buscarNaCollection(id);
+        var buscaProduto = buscarNosProdutos(id);
 
         if (buscaProduto != null) {
-            if(listaProdutos.get(listaProdutos.indexOf(listaProdutos)).removeProdutoEstoque(quantidade))
-                System.out.println("Mensagem de sucesso");
+            if(buscaProduto.adicionaProdutoEstoque(quantidade)) {
+                System.out.println("Alteração feita com sucesso");
+            }
 
         } else
             System.out.println("Mensagem de erro");
     }
 
-    public void buscaPorId(int id) {
-        var produto = buscarNaCollection(id);
+    public void removeProdutoEstoque(int id, int quantidade) {
+        var buscaProduto = buscarNosProdutos(id);
 
-        if (produto != null)
+        if (buscaProduto != null) {
+            if(buscaProduto.removeProdutoEstoque(quantidade)) {
+                System.out.println("Alteração feita com sucesso");
+            }
+        } else
+            System.out.println("Mensagem de erro");
+    }
+
+    public void buscaPorId(int id) {
+        var produto = buscarNosProdutos(id);
+
+        if(produto == null) {
+            System.out.println("Produto não identificado");
+        } else
             produto.visualizar();
-        else
-            System.out.println("\nO produto de ID " + id + " não existe.");
     }
 
     public void listaTodos() {
@@ -46,21 +62,25 @@ public class ProdutoController{
     }
 
     public void deletaProduto(int id) {
-        var produto = buscarNaCollection(id);
+        var produto = listaProdutos.get(id-1);
 
-        if (produto != null) {
-            if(listaProdutos.remove(produto))
-                System.out.println("Mensagem de delete");
+        if(listaProdutos.size()>(id-1)){
+            listaProdutos.remove(produto);
+            System.out.println("Produto excluído com sucesso!");
         } else
             System.out.println("Mensagem de erro");
     }
 
-    public Produto buscarNaCollection(int id) {
+    public Produto buscarNosProdutos(int id) {
         for (var produto : listaProdutos) {
             if (produto.getId() == id) {
                 return produto;
             }
         }
         return null;
+    }
+
+    public int geraId() {
+        return listaProdutos.size() + 1;
     }
 }
