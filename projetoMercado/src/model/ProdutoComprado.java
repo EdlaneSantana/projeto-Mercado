@@ -18,6 +18,6 @@ public class ProdutoComprado extends Produto {
 
     public void visualizar() {
         super.visualizar();
-        System.out.println("Marca: " + this.getMarca());
+        System.out.println("MARCA: " + this.getMarca());
     }
 }

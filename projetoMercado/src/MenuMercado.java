@@ -31,26 +31,26 @@ public class MenuMercado {
 
         while (true) {
             System.out.println(CoresMercado.TEXT_YELLOW
-                              +"------------------------------");
+                              +"\n------------------------------");
             System.out.println("-------------MENU-------------" +
-                    "\n1 - Cadastro de produtos" +
-                    "\n2 - Atualizar cadastro de produtos" +
-                    "\n3 - Alterar quantidade de estoque do produtos" +
-                    "\n4 - Buscar produto por ID" +
-                    "\n5 - Listar todos os produtos" +
-                    "\n6 - Deletar produto" +
-                    "\n7 - Sair");
-            System.out.println("Digite a opção desejada: ");
+                               "\n1 - Cadastro de produtos" +
+                               "\n2 - Atualizar cadastro de produtos" +
+                               "\n3 - Alterar quantidade de estoque do produtos" +
+                               "\n4 - Buscar produto por ID" +
+                               "\n5 - Listar todos os produtos" +
+                               "\n6 - Deletar produto" +
+                               "\n7 - Sair");
+            System.out.print("Digite a opção desejada: ");
             try {
                 opcao = ler.nextInt();
-            } catch (InputMismatchException e) {
-                System.out.println(CoresMercado.TEXT_RED_BOLD +"\nDi1gite valores inteiros!");
+            } catch (RuntimeException e) {
+                System.out.println(CoresMercado.TEXT_RED_BOLD +"\nDigite valores inteiros!");
                 ler.nextLine();
                 opcao = 0;
             }
 
             if (opcao == 7) {
-                System.out.println(CoresMercado.TEXT_BLACK_BOLD +"Mensagem de saída do programa");
+                System.out.println(CoresMercado.TEXT_BLACK_BOLD +"Finalizando programa...");
                 ler.close();
                 System.exit(0);
             }
@@ -62,23 +62,31 @@ public class MenuMercado {
                 case 4 -> buscaPorId();
                 case 5 -> produtos.listaTodos();
                 case 6 -> deletaProduto();
-                default -> System.out.println(CoresMercado.TEXT_RED_BOLD +"\nOpção Inválida!\n" + CoresMercado.TEXT_RESET);
+                default -> System.out.println(CoresMercado.TEXT_RED_BOLD +"Opção Inválida!\n" + CoresMercado.TEXT_RESET);
             }
 
         }
-
     }
 
     public static void cadastroProdutos() {
-        int tipo;
+        int tipo, id;
         do {
             System.out.println(CoresMercado.TEXT_YELLOW);
             System.out.println("Digite o Tipo do Produto: \n 1 - Produto Fabricação Prória \n 2 - Produto Comprado");
             tipo = ler.nextInt();
         } while (tipo < 1 || tipo > 2);
 
+        do {
+            System.out.println("Informe o ID: ");
+            id = ler.nextInt();
+            if(produtos.buscarNosProdutos(id) != null) {
+                System.out.println("Essa ID já se encontra em uso!");
+            }
+        } while (produtos.buscarNosProdutos(id) != null);
+
         System.out.println("Informe a descrição: ");
         String descricao = ler.next();
+
         System.out.println(CoresMercado.TEXT_YELLOW);
         System.out.println("Informe a categoria: \n 1 - Alimentos \n 2 - Objetos");
         int categoria = ler.nextInt();
@@ -91,14 +99,14 @@ public class MenuMercado {
                 System.out.println("Informe o vencimento padrão: ");
                 int vencimentoPadrao = ler.nextInt();
                 produtos.cadastraProduto(
-                        new ProdutoFabricacaoPropria(produtos.geraId(), tipo, descricao, categoria, quantidade, vencimentoPadrao));
+                        new ProdutoFabricacaoPropria(id, tipo, descricao, categoria, quantidade, vencimentoPadrao));
             }
 
             case 2 -> {
                 System.out.println("Digite a marca: ");
                 String marca = ler.next();
                 produtos.cadastraProduto(
-                        new ProdutoComprado(produtos.geraId(), tipo, descricao, categoria, quantidade, marca));
+                        new ProdutoComprado(id, tipo, descricao, categoria, quantidade, marca));
             }
         }
     }
@@ -117,36 +125,47 @@ public class MenuMercado {
         Produto alteraProduto = produtos.buscarNosProdutos(id);
 
         System.out.println("SELECINE O QUE DESEJA ALTERAR:" +
-                "\n1 - Tipo" +
-                "\n2 - Descrição" +
-                "\n3 - Categoria");
+                "\n1 - ID" +
+                "\n2 - Tipo" +
+                "\n3 - Descrição" +
+                "\n4 - Categoria");
 
         if (alteraProduto.getTipo() == 1) {
-            System.out.println("4 - Vencimento Padrão");
+            System.out.println("5 - Vencimento Padrão");
         }
         if (alteraProduto.getTipo() == 2) {
-            System.out.println("4 - Marca");
+            System.out.println("5 - Marca");
         }
 
         int opcao = ler.nextInt();
 
         switch (opcao) {
-            case 1:
+            case 1 -> {
+                System.out.println("Digite o novo ID: ");
+                do {
+                    id = ler.nextInt();
+                    if (produtos.buscarNosProdutos(id) != null) {
+                        System.out.println("Código de produto inválido! Digite novamente.");
+                    }
+                } while (produtos.buscarNosProdutos(id) != null);
+                alteraProduto.setId(id);
+            }
+            case 2 -> {
                 System.out.println("Digite o novo Tipo: ");
                 int tipo = ler.nextInt();
                 alteraProduto.setTipo(tipo);
-                break;
-            case 2:
-                System.out.println("Digite o novo Descrição: ");
+            }
+            case 3 -> {
+                System.out.println("Digite a nova Descrição: ");
                 String descricao = ler.next();
                 alteraProduto.setDescricao(descricao);
-                break;
-            case 3:
-                System.out.println("Digite o novo Categoria: ");
+            }
+            case 4 -> {
+                System.out.println("Digite a nova Categoria: ");
                 int categoria = ler.nextInt();
                 alteraProduto.setCategoria(categoria);
-                break;
-            case 4:
+            }
+            case 5 -> {
                 if (produtos.buscarNosProdutos(id).getTipo() == 1) {
                     System.out.println("Digite o novo Vencimento Padrão.");
                     int vencimentoPadrao = ler.nextInt();
@@ -157,6 +176,7 @@ public class MenuMercado {
                     String marca = ler.nextLine();
                     produtos.atualizaProduto(new ProdutoComprado(alteraProduto.getId(), alteraProduto.getTipo(), alteraProduto.getDescricao(), alteraProduto.getCategoria(), alteraProduto.getQuantidade(), marca));
                 }
+            }
         }
     }
 

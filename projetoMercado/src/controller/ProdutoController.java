@@ -61,13 +61,14 @@ public class ProdutoController{
     }
 
     public void deletaProduto(int id) {
-        var produto = listaProdutos.get(id-1);
+        var produto = listaProdutos.get(id);
 
-        if(listaProdutos.size()>(id-1)){
-            listaProdutos.remove(produto);
-            System.out.println("Produto excluído com sucesso!");
+        if(produto != null){
+            if(listaProdutos.remove(produto) == true) {
+                System.out.println("Produto excluído com sucesso!");
+            }
         } else
-            System.out.println("Mensagem de erro");
+            System.out.println("Erro ao excluir produto - ID não encontrado");
     }
 
     public Produto buscarNosProdutos(int id) {
@@ -77,9 +78,5 @@ public class ProdutoController{
             }
         }
         return null;
-    }
-
-    public int geraId() {
-        return listaProdutos.size() + 1;
     }
 }
