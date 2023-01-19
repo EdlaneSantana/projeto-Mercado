@@ -30,7 +30,7 @@ public class Produto {
     public boolean adicionaProdutoEstoque(int quantidade) {
         if(quantidade > 0) {
             this.quantidade += quantidade;
-            System.out.println("Adicionando " + quantidade + "unidades ao estoque");
+            System.out.println("Adicionando " + quantidade + " unidades ao estoque");
             return true;
         }
         System.out.println("A quantidade precisa ser maior do que 0!");
@@ -44,7 +44,7 @@ public class Produto {
         }
 
         this.quantidade -= quantidade;
-        System.out.println("Removendo " + quantidade + "unidades do estoque");
+        System.out.println("Removendo " + quantidade + " unidades do estoque");
         return true;
     }
 

@@ -14,12 +14,12 @@ public class MenuMercado {
     static ProdutoController produtos = new ProdutoController();
 
     public static void main(String[] args) {
-        int opcao =0;
+        int opcao = 0;
         System.out.println(CoresMercado.TEXT_YELLOW );
-        ProdutoComprado nome = new ProdutoComprado(1, 1, "Arroz", 1, 100, "CAMPEIRO");
-        ProdutoComprado nome1 = new ProdutoComprado(2, 1, "Feijão", 1, 40, "CARIOCA");
-        ProdutoComprado nome2 = new ProdutoComprado(3, 1, "Óleo", 2, 30, "LIZA");
-        ProdutoComprado nome3 = new ProdutoComprado(6, 1, "Azeite", 2, 200, "GALLO");
+        ProdutoComprado nome = new ProdutoComprado(1, 2, "Arroz", 1, 100, "CAMPEIRO");
+        ProdutoComprado nome1 = new ProdutoComprado(2, 2, "Feijão", 1, 40, "CARIOCA");
+        ProdutoComprado nome2 = new ProdutoComprado(3, 2, "Óleo", 2, 30, "LIZA");
+        ProdutoComprado nome3 = new ProdutoComprado(4, 2, "Azeite", 2, 200, "GALLO");
 
         produtos.cadastraProduto(nome);
         produtos.cadastraProduto(nome1);
@@ -50,7 +50,7 @@ public class MenuMercado {
             }
 
             if (opcao == 7) {
-                System.out.println(CoresMercado.TEXT_BLACK_BOLD +"Finalizando programa...");
+                System.out.println(CoresMercado.TEXT_BLUE_BOLD +"Finalizando programa...");
                 ler.close();
                 System.exit(0);
             }
@@ -167,13 +167,13 @@ public class MenuMercado {
             }
             case 5 -> {
                 if (produtos.buscarNosProdutos(id).getTipo() == 1) {
-                    System.out.println("Digite o novo Vencimento Padrão.");
+                    System.out.println("Digite o novo Vencimento Padrão: ");
                     int vencimentoPadrao = ler.nextInt();
                     produtos.atualizaProduto(new ProdutoFabricacaoPropria(alteraProduto.getId(), alteraProduto.getTipo(), alteraProduto.getDescricao(), alteraProduto.getCategoria(), alteraProduto.getQuantidade(), vencimentoPadrao));
                 }
                 if (produtos.buscarNosProdutos(id).getTipo() == 2) {
-                    System.out.println("Digite a nova Marca.");
-                    String marca = ler.nextLine();
+                    System.out.println("Digite a nova Marca: ");
+                    String marca = ler.next();
                     produtos.atualizaProduto(new ProdutoComprado(alteraProduto.getId(), alteraProduto.getTipo(), alteraProduto.getDescricao(), alteraProduto.getCategoria(), alteraProduto.getQuantidade(), marca));
                 }
             }
@@ -206,13 +206,15 @@ public class MenuMercado {
 
     public static void buscaPorId() {
         System.out.println("Digite o ID do produto:");
-        int numero = ler.nextInt();
+        int id;
+        do {
+            id = ler.nextInt();
+            if (produtos.buscarNosProdutos(id) == null) {
+                System.out.println("Código de produto inválido! Digite novamente.");
+            }
+        } while (produtos.buscarNosProdutos(id) == null);
 
-        if (numero > produtos.listaProdutos.size()) {
-            System.out.println("Produto não existente");
-            System.exit(0);
-        }
-        produtos.buscaPorId(numero);
+        produtos.buscaPorId(id);
     }
 
     public static void deletaProduto() {

@@ -18,6 +18,6 @@ public class ProdutoFabricacaoPropria extends Produto {
 
     public void visualizar() {
         super.visualizar();
-        System.out.println("Vencimento padrão: " + this.diasVencimento + " dias");
+        System.out.println("VENCIMENTO PADRÃO: " + this.diasVencimento + " dias");
     }
 }

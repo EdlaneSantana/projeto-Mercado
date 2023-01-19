@@ -17,7 +17,7 @@ public class ProdutoController{
         var buscarProduto = buscarNosProdutos(produto.getId());
         if (buscarProduto != null){
             listaProdutos.set(listaProdutos.indexOf(buscarProduto), produto);
-            System.out.println("Produto alterado: " + produto.getId());
+            System.out.println("Produto alterado: " + produto.getId() + " - " + produto.getDescricao());
         } else
             System.out.println("Não foi encontrado!");
     }
@@ -61,10 +61,10 @@ public class ProdutoController{
     }
 
     public void deletaProduto(int id) {
-        var produto = listaProdutos.get(id);
+        var produto = buscarNosProdutos(id);
 
         if(produto != null){
-            if(listaProdutos.remove(produto) == true) {
+            if(listaProdutos.remove(produto)) {
                 System.out.println("Produto excluído com sucesso!");
             }
         } else
