@@ -15,7 +15,7 @@ public class MenuMercado {
 
     public static void main(String[] args) {
         int opcao =0;
-        System.out.println(CoresMercado.TEXT_GREEN );
+        System.out.println(CoresMercado.TEXT_YELLOW );
         ProdutoComprado nome = new ProdutoComprado(1, 1, "Arroz", 1, 100, "CAMPEIRO");
         ProdutoComprado nome1 = new ProdutoComprado(2, 1, "Feijão", 1, 40, "CARIOCA");
         ProdutoComprado nome2 = new ProdutoComprado(3, 1, "Óleo", 2, 30, "LIZA");
@@ -30,7 +30,7 @@ public class MenuMercado {
         System.out.println(TEXT_YELLOW_BRIGHT);
 
         while (true) {
-            System.out.println(CoresMercado.TEXT_GREEN
+            System.out.println(CoresMercado.TEXT_YELLOW
                               +"------------------------------");
             System.out.println("-------------MENU-------------" +
                     "\n1 - Cadastro de produtos" +
@@ -72,14 +72,14 @@ public class MenuMercado {
     public static void cadastroProdutos() {
         int tipo;
         do {
-            System.out.println(CoresMercado.TEXT_GREEN);
+            System.out.println(CoresMercado.TEXT_YELLOW);
             System.out.println("Digite o Tipo do Produto: \n 1 - Produto Fabricação Prória \n 2 - Produto Comprado");
             tipo = ler.nextInt();
         } while (tipo < 1 && tipo > 2);
 
         System.out.println("Informe a descrição: ");
         String descricao = ler.next();
-        System.out.println(CoresMercado.TEXT_GREEN);
+        System.out.println(CoresMercado.TEXT_YELLOW);
         System.out.println("Informe a categoria: \n 1 - Alimentos \n 2 - Objetos");
         int categoria = ler.nextInt();
 
@@ -138,7 +138,7 @@ public class MenuMercado {
                 break;
             case 2:
                 System.out.println("Digite o novo Descrição: ");
-                String descricao = ler.nextLine();
+                String descricao = ler.next();
                 alteraProduto.setDescricao(descricao);
                 break;
             case 3:
@@ -162,11 +162,11 @@ public class MenuMercado {
 
     public static void alteraEstoque() {
         int id, opcao;
-        System.out.println("1 - Adicionar produtos ao estoque" +
+        System.out.println("1 - Adicionar produtos ao estoque\n" +
                 "2 - Remover produtos do estoque");
         opcao = ler.nextInt();
 
-        System.out.println("Digite o código do produto");
+        System.out.println("Digite o ID do produto: ");
         do {
             id = ler.nextInt();
             if (produtos.buscarNosProdutos(id) == null) {
