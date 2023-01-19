@@ -75,7 +75,7 @@ public class MenuMercado {
             System.out.println(CoresMercado.TEXT_GREEN);
             System.out.println("Digite o Tipo do Produto: \n 1 - Produto Fabricação Prória \n 2 - Produto Comprado");
             tipo = ler.nextInt();
-        } while (tipo < 1 && tipo > 2);
+        } while (tipo < 1 || tipo > 2);
 
         System.out.println("Informe a descrição: ");
         String descricao = ler.next();
