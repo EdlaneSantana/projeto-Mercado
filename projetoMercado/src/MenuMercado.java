@@ -2,6 +2,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import controller.ProdutoController;
+import model.CoresMercado;
 import model.Produto;
 import model.ProdutoComprado;
 import model.ProdutoFabricacaoPropria;
@@ -13,8 +14,8 @@ public class MenuMercado {
     static ProdutoController produtos = new ProdutoController();
 
     public static void main(String[] args) {
-        int opcao;
-
+        int opcao =0;
+        System.out.println(CoresMercado.TEXT_GREEN );
         ProdutoComprado nome = new ProdutoComprado(1, 1, "Arroz", 1, 100, "CAMPEIRO");
         ProdutoComprado nome1 = new ProdutoComprado(2, 1, "Feijão", 1, 40, "CARIOCA");
         ProdutoComprado nome2 = new ProdutoComprado(3, 1, "Óleo", 2, 30, "LIZA");
@@ -29,6 +30,8 @@ public class MenuMercado {
         System.out.println(TEXT_YELLOW_BRIGHT);
 
         while (true) {
+            System.out.println(CoresMercado.TEXT_GREEN
+                              +"------------------------------");
             System.out.println("-------------MENU-------------" +
                     "\n1 - Cadastro de produtos" +
                     "\n2 - Atualizar cadastro de produtos" +
@@ -37,17 +40,17 @@ public class MenuMercado {
                     "\n5 - Listar todos os produtos" +
                     "\n6 - Deletar produto" +
                     "\n7 - Sair");
-
+            System.out.println("Digite a opção desejada: ");
             try {
                 opcao = ler.nextInt();
             } catch (InputMismatchException e) {
-                System.out.println("\nDi1gite valores inteiros!");
+                System.out.println(CoresMercado.TEXT_RED_BOLD +"\nDi1gite valores inteiros!");
                 ler.nextLine();
                 opcao = 0;
             }
 
             if (opcao == 7) {
-                System.out.println("Mensagem de saída do programa");
+                System.out.println(CoresMercado.TEXT_BLACK_BOLD +"Mensagem de saída do programa");
                 ler.close();
                 System.exit(0);
             }
@@ -59,7 +62,7 @@ public class MenuMercado {
                 case 4 -> buscaPorId();
                 case 5 -> produtos.listaTodos();
                 case 6 -> deletaProduto();
-                default -> System.out.println("\nOpção Inválida!\n");
+                default -> System.out.println(CoresMercado.TEXT_RED_BOLD +"\nOpção Inválida!\n" + CoresMercado.TEXT_RESET);
             }
 
         }
@@ -69,13 +72,14 @@ public class MenuMercado {
     public static void cadastroProdutos() {
         int tipo;
         do {
+            System.out.println(CoresMercado.TEXT_GREEN);
             System.out.println("Digite o Tipo do Produto: \n 1 - Produto Fabricação Prória \n 2 - Produto Comprado");
             tipo = ler.nextInt();
         } while (tipo < 1 && tipo > 2);
 
         System.out.println("Informe a descrição: ");
         String descricao = ler.next();
-
+        System.out.println(CoresMercado.TEXT_GREEN);
         System.out.println("Informe a categoria: \n 1 - Alimentos \n 2 - Objetos");
         int categoria = ler.nextInt();
 
