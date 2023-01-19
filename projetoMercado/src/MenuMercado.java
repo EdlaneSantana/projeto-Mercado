@@ -8,8 +8,6 @@ import model.ProdutoComprado;
 import model.ProdutoFabricacaoPropria;
 
 public class MenuMercado {
-
-
     static Scanner ler = new Scanner(System.in);
     static ProdutoController produtos = new ProdutoController();
 
